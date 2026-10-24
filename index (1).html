@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Alloy Lab: real alloy specs, recipes and how steel is made</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..800&family=Newsreader:opsz,wght@6..72,400;6..72,600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#e8ebec;--panel:#f6f7f7;--ink:#17242b;--mute:#52636c;--line:#c3cbcf;--hot:#c8491a;--hotink:#fff;--ok:#1f6b45;--bad:#a3331c;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141a1e;--panel:#1d262b;--ink:#e6ebed;--mute:#9aa9b1;--line:#33414a;--hot:#ff7a45;--hotink:#1a1008;--ok:#6fcf9b;--bad:#ff8f77;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#141a1e;--panel:#1d262b;--ink:#e6ebed;--mute:#9aa9b1;--line:#33414a;--hot:#ff7a45;--hotink:#1a1008;--ok:#6fcf9b;--bad:#ff8f77;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.6 Newsreader,Georgia,serif}
+h1,h2,h3,.ui,button,th,label,select,input{font-family:Archivo,"Helvetica Neue",Arial,sans-serif}
+h1{font-size:clamp(2.2rem,6vw,3.8rem);line-height:1;margin:0 0 .6rem;font-weight:800;font-stretch:80%;letter-spacing:-.02em}
+h2{font-size:clamp(1.5rem,4vw,2.1rem);margin:0 0 .5rem;font-weight:700;font-stretch:85%}
+h3{font-size:1.05rem;margin:.9rem 0 .3rem;font-weight:700}
+p{margin:.4rem 0 .9rem;max-width:70ch}
+.wrap{max-width:1040px;margin:0 auto;padding:0 18px}
+header{padding:32px 0 14px}
+.lede{color:var(--mute);font-size:1.12rem}
+section{padding:30px 0;border-top:1px solid var(--line)}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:18px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+button{font:600 .9rem Archivo,Arial,sans-serif;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:6px;padding:8px 12px;cursor:pointer}
+button:hover{border-color:var(--hot)}
+button[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{outline:3px solid var(--hot);outline-offset:2px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:760px){.grid2{grid-template-columns:1fr}}
+table{width:100%;border-collapse:collapse;font:.92rem Archivo,Arial,sans-serif}
+th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+.scroll{overflow-x:auto}
+.sub{color:var(--mute);font:.88rem Archivo,Arial,sans-serif}
+.warn{border-left:4px solid var(--hot);padding:2px 0 2px 12px;margin:12px 0;font-size:1rem}
+label{font-size:.88rem;display:block;margin-bottom:3px;color:var(--mute)}
+input,select{font-size:1rem;padding:7px 8px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink);width:100%}
+.inl{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:10px 0}
+.mix{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px;margin:12px 0}
+.ok{color:var(--ok);font-weight:700}.bad{color:var(--bad)}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:14px 0}
+.tile{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px}
+.tile b{display:block;font:800 1.6rem Archivo,Arial,sans-serif;color:var(--hot)}
+.zones div{border-left:4px solid var(--hot);padding:2px 0 2px 12px;margin:10px 0}
+.zones h3{margin:0}.zones p{margin:.15rem 0 0;font-size:1rem}
+.eq{font:.92rem ui-monospace,Menlo,Consolas,monospace;background:var(--panel);border:1px solid var(--line);border-radius:5px;padding:1px 6px;white-space:nowrap}
+.steps{counter-reset:s;list-style:none;padding:0;margin:14px 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.steps li{counter-increment:s;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.steps li:before{content:counter(s);font:800 1.4rem Archivo,Arial,sans-serif;color:var(--hot)}
+.steps p{font-size:.98rem;margin:.2rem 0}
+.src a{color:var(--ink);word-break:break-word}
+ul.src{padding-left:1.1rem;font-size:.95rem}
+.big{font:800 clamp(2rem,7vw,3.2rem) Archivo,Arial,sans-serif;line-height:1;margin:0 0 8px}
+.mr{display:grid;grid-template-columns:150px 1fr 64px;gap:10px;align-items:center;margin:7px 0;font:.88rem Archivo,Arial,sans-serif}
+@media(max-width:560px){.mr{grid-template-columns:104px 1fr 56px}}
+.tr{position:relative;height:12px;background:var(--line);border-radius:6px;overflow:hidden}
+.tr b{position:absolute;top:0;bottom:0;background:var(--hot);min-width:3px}
+.tr i{position:absolute;top:0;bottom:0;width:2px;background:var(--ink)}
+.st{font-style:normal;text-align:right}.st.l{color:var(--hot);font-weight:700}.st.m{color:var(--hot)}
+.cbar{display:flex;height:16px;border-radius:8px;overflow:hidden;margin:6px 0 10px;border:1px solid var(--line)}.cbar span{display:block;height:100%}
+.ctr{position:relative;height:16px;background:var(--line);border-radius:8px;margin:10px 0;overflow:hidden}.ctr b{position:absolute;top:0;bottom:0;background:var(--hot);opacity:.75;min-width:3px}.ctr i{position:absolute;top:0;bottom:0;width:3px;background:var(--ink)}
+.fz button,.fz button[aria-pressed=true]{display:block;width:100%;text-align:left;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.6);border:0;border-radius:0;padding:11px 12px;opacity:.5}
+.fz button[aria-pressed=true]{opacity:1;outline:3px solid var(--ink);outline-offset:-3px}
+.fz{border-radius:8px;overflow:hidden;margin-bottom:10px}
+input[type=range]{padding:0;accent-color:var(--hot)}
+footer{padding:24px 0 40px;color:var(--mute);font-size:.9rem;border-top:1px solid var(--line)}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<h1>Alloy Lab</h1>
+<p class="lede">Real alloy grades with standard composition limits and datasheet properties. Pick one, get a weighed recipe for the part you want to make, or test your own mix against the standards. Sources are linked at the bottom.</p>
+</header>
+
+<section id="lib" style="border-top:0">
+<h2>1. Alloy library and recipe calculator</h2>
+<p>Composition is in weight percent. Limits come from the standard named on each card. Property values are minimums or typical values as labelled.</p>
+<div class="chips" id="chips"></div>
+<div class="card" id="card"></div>
+</section>
+
+<section id="chk">
+<h2>2. Check your own mix</h2>
+<p>Enter parts by weight (grams, kilograms, anything, as long as it is the same unit). The checker converts to percent and compares against every grade above. It tracks the 11 elements listed. Trace limits such as phosphorus, sulfur and lead are not checked, and any element a grade does not list is allowed up to 0.35%.</p>
+<div class="inl"><div><label for="ld">Load a grade’s recipe</label><select id="ld"></select></div><div style="align-self:end"><button id="chb" type="button">Challenge me</button></div></div><div class="warn" id="chm" hidden></div>
+<div class="mix" id="mix"></div>
+<div class="card" id="res"></div>
+<h3>Element reference</h3>
+<div class="scroll"><table id="el"><tr><th>Element</th><th class="n">Density g/cm³</th><th class="n">Melts °C</th></tr></table></div>
+<p class="sub">Density estimate uses volume additivity (1/ρ = Σ wᵢ/ρᵢ). It usually lands within about 3% of datasheet values. Use the grade’s datasheet density for real design. Graphite is used for carbon.</p>
+</section>
+
+<section id="melt">
+<h2>Try it: melt-o-meter</h2>
+<p>Drag the temperature. Each bar spans a metal’s melting point, or an alloy’s solidus-to-liquidus range. Between those two temperatures an alloy is mushy: part solid, part liquid.</p>
+<div class="card" id="mcard"><div class="big" id="mt">20 °C</div><input id="mr" type="range" min="20" max="2300" step="10" value="20" aria-label="Temperature in degrees Celsius"><p class="sub" id="mev"></p><div id="mrows"></div></div>
+</section>
+<section id="carbon">
+<h2>Try it: carbon dial</h2>
+<p>Carbon is the main lever in iron. Drag the dial, or tap a grade, to see what you are making. Orange bands mark the standard carbon limits of real grades.</p>
+<div class="card"><div class="big" id="cv"></div><input id="cr" type="range" min="0" max="5" step="0.05" value="0.2" aria-label="Carbon in weight percent"><div class="ctr" id="ct"></div><div class="chips" id="cchips"></div><p id="cd"></p></div>
+</section>
+<section id="ore">
+<h2>3. From iron ore to iron</h2>
+<p>Iron occurs as oxides. Hematite (<span class="eq">Fe₂O₃</span>) is 69.9% iron by mass and magnetite (<span class="eq">Fe₃O₄</span>) is 72.4%, calculated from atomic masses. Mined ore is upgraded to concentrates of 55–65% iron and pellets of about 65% iron. Making iron means removing the oxygen, which chemists call reduction.</p>
+<h3>Raw materials for 1,000 kg of crude steel, blast furnace route</h3>
+<div class="tiles"><div class="tile"><b>1,370 kg</b>iron ore</div><div class="tile"><b>780 kg</b>coal</div><div class="tile"><b>270 kg</b>limestone</div><div class="tile"><b>125 kg</b>recycled steel</div></div>
+<div class="grid2">
+<div id="furn"></div><div class="zones" hidden>
+<h3>Inside a blast furnace, top to bottom</h3>
+<div><h3>Top</h3><p>Ore, coke and limestone go in. Rising gas leaves at about 200 °C after giving up most of its heat.</p></div>
+<div><h3>Stack</h3><p>Carbon monoxide strips oxygen from the ore in steps as it sinks. Limestone breaks down into lime and carbon dioxide.</p></div>
+<div><h3>Lower stack</h3><p>FeO is reduced to metallic iron at temperatures up to about 1,200 °C.</p></div>
+<div><h3>Tuyeres and hearth</h3><p>Blast air preheated to 900–1,350 °C burns coke. Gas near the tuyeres reaches about 2,200 °C. Molten iron and slag collect and are tapped at about 1,500 °C.</p></div>
+</div>
+<div>
+<h3>Reactions</h3>
+<p><span class="eq">2C + O₂ → 2CO</span> coke burns to carbon monoxide.<br><span class="eq">Fe₂O₃ + 3CO → 2Fe + 3CO₂</span> overall reduction of hematite.<br><span class="eq">FeO + CO → Fe + CO₂</span> final step to metal.<br><span class="eq">CaCO₃ → CaO + CO₂</span> limestone decomposes.<br><span class="eq">CaO + SiO₂ → CaSiO₃</span> lime binds silica into slag.</p>
+<h3>What comes out</h3>
+<p>Pig iron (hot metal) holds about 4–5% carbon, plus silicon, manganese, sulfur and phosphorus. That is why it is hard and brittle. Slag typically contains 30–40% SiO₂, 35–45% CaO, 5–15% Al₂O₃ and 5–15% MgO, and floats on the iron.</p>
+</div></div>
+</section>
+
+<section id="steel">
+<h2>4. From iron to steel</h2>
+<p>Steelmaking lowers carbon from about 4–5% down to the grade’s target, for example 0.15–0.20% in 1018, and sets the alloying elements.</p>
+<div class="scroll"><table style="min-width:520px">
+<tr><th></th><th>Basic oxygen furnace (BOF)</th><th>Electric arc furnace (EAF)</th></tr>
+<tr><td>Charge</td><td>About 70% molten pig iron and 30% scrap</td><td>Mostly scrap, or direct reduced iron</td></tr>
+<tr><td>How it heats</td><td>Oxygen blown into the bath burns out carbon. The reactions supply the heat.</td><td>Electric arc, up to 3,500 °C at the arc. Theoretical energy 350–400 kWh per tonne.</td></tr>
+<tr><td>Tap temperature</td><td>About 1,650 °C</td><td>About 1,600–1,720 °C</td></tr>
+<tr><td>Cycle time</td><td>40–50 minutes tap to tap, about half of it blowing oxygen</td><td>Roughly 35–200 minutes depending on furnace size</td></tr>
+<tr><td>Share</td><td>Majority of world steel</td><td>About 30% of world steel</td></tr>
+</table></div>
+<p style="margin-top:12px">After tapping, a ladle furnace adjusts chemistry. Manganese, silicon, chromium, nickel and others are added to land inside the grade’s limits, such as the ones in the library above.</p>
+</section>
+
+<section id="proc">
+<h2>5. Ways to make and shape alloys</h2>
+<div class="chips" id="tabs"></div>
+<div class="card" id="panel"></div>
+</section>
+
+<section id="safe">
+<h2>6. Before you build</h2>
+<div class="warn">Melting metal is dangerous. Wear a face shield, leather gloves, natural-fibre clothes and closed leather boots. Keep everything that touches molten metal completely dry, because trapped moisture turns to steam and can throw metal. Work outdoors or with strong ventilation.</div>
+<div class="warn">Zinc boils at 907 °C, which is lower than the temperature where brass is fully liquid (about 955–965 °C). Brass melting makes zinc fume. Breathing it causes metal fume fever. Add zinc late, keep the melt as cool as you can, and ventilate well.</div>
+<div class="warn">Steel and stainless melt at 1,400–1,500 °C and are tapped near 1,650 °C in industry. That is far beyond a simple hobby furnace. For steel parts, buy bar stock of the grade and machine or forge it instead.</div>
+<p>These specifications are for learning and planning. For anything that carries load or touches food or water, buy material with a mill certificate and follow the relevant standard.</p>
+</section>
+
+<section id="src">
+<h2>Sources</h2>
+<ul class="src" id="srcl"></ul>
+</section>
+<footer>Data compiled from the linked standards summaries, datasheets and references on 24 October 2026. Always confirm against the current standard or your supplier’s certificate.</footer>
+</div>
+
+<script>
+const E=[['Fe','Iron',7.87,1538],['C','Carbon (graphite)',2.27,null],['Si','Silicon',2.33,1414],['Mn','Manganese',7.3,1246],['Cr','Chromium',7.19,1907],['Ni','Nickel',8.91,1455],['Cu','Copper',8.96,1085],['Zn','Zinc',7.14,420],['Sn','Tin',7.27,232],['Al','Aluminium',2.70,660],['Mg','Magnesium',1.74,650]].map(a=>({k:a[0],n:a[1],d:a[2],m:a[3]}));
+const EN=Object.fromEntries(E.map(e=>[e.k,e.n]));
+const A=[
+{id:'1018',n:'SAE 1018 steel',std:'UNS G10180 · low-carbon steel',bal:'Fe',rng:{C:[.15,.2],Mn:[.6,.9]},nom:{C:.18,Mn:.75},rho:7.87,rr:'7.87',melt:'1,425–1,510 °C',
+p:[['Tensile strength','440 MPa'],['Yield strength','370 MPa'],['Elongation','15%'],['Hardness','126 HB'],['Elastic modulus','200 GPa']],oth:'P ≤ 0.04, S ≤ 0.05.',use:'Shafts, pins, brackets and welded frames. Machines and welds easily. Low carbon suits case hardening.',w:'st',
+s:[['Quickparts 1018 datasheet','https://quickparts.com/wp-content/uploads/2024/05/Steel-1018.pdf'],['Misumi 1018 overview','https://us.misumi-ec.com/blog/1018-steel/']]},
+{id:'1045',n:'SAE 1045 steel',std:'UNS G10450 · medium-carbon steel',bal:'Fe',rng:{C:[.43,.5],Mn:[.6,.9],Si:[.1,.35]},nom:{C:.465,Mn:.75,Si:.2},rho:7.85,rr:'7.85–7.86',melt:'≈1,430 °C',
+p:[['Tensile strength','570–700 MPa (hot rolled)'],['Yield strength','≥ 310 MPa'],['Hardness','163–210 HB (hot rolled or annealed)']],oth:'P ≤ 0.04, S ≤ 0.05. Can be heat treated to about 54–60 HRC at the surface.',use:'Gears, shafts, axles and crankshafts where more strength than 1018 is needed.',w:'st',
+s:[['1045 composition and properties','https://shop.machinemfg.com/aisi-1045-steel-composition-uses-and-properties'],['1045 bar data sheet','https://tte-lisa.ac.uk/wp-content/uploads/vle_content/Phase2/mechanical/CME32/Resource/Materials/EN43B-1045-medium-tensile-carbon-steel-bar.PDF']]},
+{id:'g30',n:'Gray cast iron, ASTM A48 Class 30',std:'ASTM A48 · flake-graphite iron',bal:'Fe',rng:{C:[2.5,4],Si:[1,3],Mn:[.25,1.5]},nom:{C:3.25,Si:2.65,Mn:.6},rho:7.1,rr:'6.8–7.3',melt:'Solidus ≈1,180 °C; liquid by ≈1,380 °C (typical)',
+p:[['Tensile strength','≥ 207 MPa (30 ksi) in the test bar'],['Graphite','6–10% of volume, as flakes']],oth:'A48 grades by strength, not by chemistry. The recipe shown is a typical foundry analysis.',use:'Engine blocks, machine bases, pipe and cookware. Casts easily and damps vibration. Brittle in tension.',w:'fe',
+s:[['Gray iron (Wikipedia)','https://en.wikipedia.org/wiki/Gray_iron'],['Grade 30 grey iron (MakeItFrom)','https://www.makeitfrom.com/material-properties/ASTM-Grade-30-or-200-ISO-200-EN-JL-1030-F12101-Grey-Cast-Iron']]},
+{id:'304',n:'304 stainless steel',std:'ASTM A240 · UNS S30400 · 18/8 austenitic',bal:'Fe',rng:{C:[0,.08],Mn:[0,2],Si:[0,.75],Cr:[18,20],Ni:[8,10.5]},nom:{Cr:19,Ni:9,Mn:1.5,Si:.5,C:.05},rho:7.93,rr:'7.90–8.03',melt:'1,400–1,455 °C',
+p:[['Tensile strength','≥ 515 MPa'],['Yield strength','≥ 205 MPa'],['Elongation','≥ 40%'],['Hardness','≤ 201 HB (92 HRB)'],['Elastic modulus','193 GPa']],oth:'N ≤ 0.10, P ≤ 0.045, S ≤ 0.030. Chromium forms the passive film that resists rust. Cannot be hardened by heat treatment.',use:'Sinks, food equipment, tanks and fasteners.',w:'st',
+s:[['ATI 304 datasheet','https://www.atimaterials.com/Products/ati-304'],['304 data sheet (Alloys International)','https://alloysintl.com/inventory/stainless-steel/stainless_steel304/']]},
+{id:'6061',n:'6061-T6 aluminium',std:'AA 6061 · UNS A96061 · T6 temper',bal:'Al',rng:{Mg:[.8,1.2],Si:[.4,.8],Cu:[.15,.4],Cr:[.04,.35],Fe:[0,.7],Zn:[0,.25],Mn:[0,.15]},nom:{Mg:1,Si:.6,Cu:.27,Cr:.2},rho:2.70,rr:'2.70',melt:'582–652 °C',
+p:[['Tensile strength','310 MPa typical (290 min)'],['Yield strength','276 MPa typical (240 min)'],['Elongation','12–17%'],['Hardness','95 HB'],['Conductivity','about 43% IACS']],oth:'Ti ≤ 0.15. The T6 strength needs heat treatment: solution treat near 529 °C, then age at 160 °C. As cast or annealed it is much softer.',use:'Frames, structures, marine and general machined parts. Welds well.',w:'al',
+s:[['6061-T6 data sheet (ASM/MatWeb copy)','https://quickparts.com/wp-content/uploads/2024/05/Aluminum-6061.pdf'],['6061-T6 (MakeItFrom)','https://www.makeitfrom.com/material-properties/6061-T6-Aluminum'],['6061 heat-treat temperatures (Alliance)','https://www.allianceorg.com/pdfs/alumext/6061t6.pdf']]},
+{id:'c260',n:'C26000 cartridge brass',std:'ASTM B19 / B36 / B927 · 70/30 brass',bal:'Zn',rng:{Cu:[68.5,71.5],Fe:[0,.05]},nom:{Cu:70},rho:8.53,rr:'8.53',melt:'Solidus ≈915 °C; liquidus ≈955–965 °C',
+p:[['Tensile strength','345 MPa (quarter hard) to 415 MPa (half hard), minimums'],['Yield strength','205–275 MPa, same tempers'],['Conductivity','about 28% IACS (annealed)']],oth:'Pb ≤ 0.07. Do not use with ammonia compounds, which cause stress corrosion cracking.',use:'Cartridge cases, fasteners, plumbing and deep-drawn parts. Best cold-forming brass.',w:'zn',
+s:[['C26000 data (Concast)','https://www.concast.com/files/C26000.pdf'],['70-30 brass (Austral Wright)','https://www.australwright.com.au/technical-data/alloys/copper-brass/c26000-70-30-brass/']]},
+{id:'c903',n:'C90300 tin bronze',std:'ASTM B505 · 88-8-0-4 gunmetal-type bronze',bal:'Cu',balR:[86,89],rng:{Sn:[7.5,9],Zn:[3,5],Fe:[0,.2],Ni:[0,1]},nom:{Sn:8.25,Zn:4},rho:8.8,rr:'8.80',melt:'Solidus 854 °C; liquidus 1,000 °C',
+p:[['Tensile strength','≥ 303 MPa (as cast)'],['Yield strength','≥ 152 MPa'],['Elongation','≥ 18%'],['Hardness','70 BHN typical'],['Conductivity','12% IACS']],oth:'Pb ≤ 0.30. Low lead means it needs constant lubrication as a bearing.',use:'Bearings, bushings, gears, pump impellers, steam fittings and valves.',w:'cu',
+s:[['C90300 reference (Concast)','https://www.concast.com/c90300.php'],['ASTM B505 C90300 sheet','https://www.concast.com/files/C90300.pdf']]},
+{id:'ni80',n:'Nichrome 80/20',std:'UNS N06003 · NiCr 80/20 resistance alloy',bal:'Ni',rng:{Cr:[20,23],Si:[1,1.5],Fe:[0,1],Mn:[0,1]},nom:{Cr:21,Si:1.2},rho:8.4,rr:'8.3–8.4',melt:'≈1,400 °C',
+p:[['Resistivity','1.09–1.12 µΩ·m at 20 °C'],['Max use in air','1,150–1,200 °C'],['Magnetism','non-magnetic'],['Compared with copper','about 66× the resistivity']],oth:'Chromium oxide skin protects it at red heat.',use:'Heating coils for furnaces, kilns and toasters.',w:'ni',
+s:[['Nichrome 80 data sheet (NiWire)','https://www.mikrocontroller.net/attachment/659182/Nichrome_80.pdf'],['Nichrome (Wikipedia)','https://en.wikipedia.org/wiki/Nichrome']]}];
+const W={st:'Steel is melted near 1,400–1,500 °C and tapped near 1,650 °C in industry. Beyond hobby furnaces. Use bar stock.',fe:'Cast iron melts at lower temperatures than steel but still needs a purpose-built iron foundry furnace.',al:'Keep tools, moulds and scrap bone dry. Moisture under molten aluminium can cause violent spattering. Magnesium oxidizes quickly, so alloy it from a master alloy or ingot.',zn:'Zinc boils at 907 °C, below this brass’s liquid temperature. Expect fume. Ventilate, add zinc late, and plan for some zinc loss.',cu:'Pour temperature is about 1,000 °C or more. Copper alloys oxidize in the melt, so use flux and a clean, dry mould.',ni:'You will most likely buy this as wire. Melting nickel alloys is an industrial job.'};
+const f=(x,d=2)=>(+x).toFixed(d).replace(/\.?0+$/,'');
+const $=i=>document.getElementById(i);
+const CC={Fe:'#8a949b',C:'#2a2a2a',Si:'#c9b48a',Mn:'#a07f8f',Cr:'#9fb4c4',Ni:'#7f9a86',Cu:'#b5693b',Zn:'#6f8fb0',Sn:'#c9ccd0',Al:'#cfd6dc',Mg:'#e0d88c'};
+function full(a){const o={...a.nom};o[a.bal]=100-Object.values(o).reduce((x,y)=>x+y,0);return o}
+const chips=$('chips');let cur=A[0];
+A.forEach(a=>{const b=document.createElement('button');b.textContent=a.n;b.dataset.id=a.id;b.onclick=()=>show(a);chips.appendChild(b)});
+function show(a){cur=a;[...chips.children].forEach(b=>b.setAttribute('aria-pressed',b.dataset.id===a.id));
+const F=full(a);const keys=Object.keys(F).sort((x,y)=>F[y]-F[x]);
+const rows=keys.map(k=>{const r=a.rng[k]||(k===a.bal?a.balR:null);const lim=r?(r[0]>0?`${f(r[0])}–${f(r[1])}`:`≤ ${f(r[1])}`):'balance';return `<tr><td>${EN[k]} (${k})</td><td class="n">${lim}${k===a.bal&&!a.balR?' (balance)':''}</td><td class="n">${f(F[k],F[k]>=1?1:2)}</td></tr>`}).join('');
+$('card').innerHTML=`<h2 style="margin-top:0">${a.n}</h2><p class="sub">${a.std}</p>
+<div class="grid2"><div><h3>Composition, wt%</h3><div class="scroll"><table><tr><th>Element</th><th class="n">Standard limit</th><th class="n">Recipe</th></tr>${rows}</table></div><p class="sub">${a.oth}</p></div>
+<div><h3>Properties</h3><table>${a.p.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`).join('')}<tr><td>Density</td><td>${a.rr} g/cm³</td></tr><tr><td>Melting</td><td>${a.melt}</td></tr></table><p style="margin-top:10px">${a.use}</p></div></div>
+<h3>Recipe for your part</h3>
+<div class="inl"><div><label for="vol">Finished part volume (cm³)</label><input id="vol" type="number" min="0" step="any" value="50"></div><div><label for="mas">or finished mass (g)</label><input id="mas" type="number" min="0" step="any"></div><div><label for="ext">Extra for runners and melt loss (%)</label><input id="ext" type="number" min="0" step="any" value="20"></div></div>
+<div id="rec"></div><div class="warn">${W[a.w]}</div>
+<p class="sub">Sources: ${a.s.map(s=>`<a href="${s[1]}" rel="noopener" target="_blank">${s[0]}</a>`).join(' · ')}</p>`;
+const v=$('vol'),m=$('mas'),x=$('ext');
+const calc=src=>{if(src==='v')m.value=f(v.value*a.rho,1);else v.value=f(m.value/a.rho,1);const net=+m.value,ch=net*(1+x.value/100);
+$('rec').innerHTML=`<p>Net part ${f(net,1)} g (density ${a.rho} g/cm³). Total charge to weigh out: <b>${f(ch,1)} g</b>. The extra % is your own allowance, not a standard.</p><table><tr><th>Ingredient</th><th class="n">Grams</th></tr>${keys.map(k=>`<tr><td>${EN[k]}</td><td class="n">${f(ch*F[k]/100,F[k]>=1?1:2)}</td></tr>`).join('')}</table>`};
+v.oninput=()=>calc('v');m.oninput=()=>calc('m');x.oninput=()=>calc('m');calc('v')}
+show(A[0]);
+
+// checker
+const mix=$('mix'),ld=$('ld');ld.innerHTML='<option value="">Choose…</option>'+A.map(a=>`<option value="${a.id}">${a.n}</option>`).join('')+'<option value="clear">Clear all</option>';
+E.forEach(e=>{const d=document.createElement('div');d.innerHTML=`<label for="m${e.k}">${e.n}</label><input id="m${e.k}" type="number" min="0" step="any" placeholder="0">`;mix.appendChild(d);d.querySelector('input').oninput=check});
+ld.onchange=()=>{const a=A.find(x=>x.id===ld.value);E.forEach(e=>$('m'+e.k).value=a?f(full(a)[e.k]||0,3):'');if(a||ld.value==='clear')check()};
+function check(){const v={};let t=0;E.forEach(e=>{v[e.k]=Math.max(0,+$('m'+e.k).value||0);t+=v[e.k]});const R=$('res');
+if(!t){R.innerHTML='<p class="sub">Enter amounts to see percentages, estimated density and the matching grade.</p>';return}
+const p={};E.forEach(e=>p[e.k]=v[e.k]/t*100);let iv=0;E.forEach(e=>iv+=p[e.k]/100/e.d);
+const sc=A.map(a=>{const bad=[];let dev=0;E.forEach(e=>{if(e.k===a.bal){const r=a.balR;if(r&&(p[e.k]<r[0]||p[e.k]>r[1])){bad.push(`${e.k} ${f(p[e.k],1)}% (needs ${r[0]}–${r[1]})`);dev+=Math.min(Math.abs(p[e.k]-r[0]),Math.abs(p[e.k]-r[1]))}else if(!r&&p[e.k]<50){bad.push(`${e.k} ${f(p[e.k],1)}% (should be the balance)`);dev+=50-p[e.k]}return}
+const r=a.rng[e.k];if(r){if(p[e.k]<r[0]-1e-9||p[e.k]>r[1]+1e-9){bad.push(`${e.k} ${f(p[e.k],2)}% (needs ${r[0]>0?r[0]+'–':'≤ '}${r[1]})`);dev+=Math.min(Math.abs(p[e.k]-r[0]),Math.abs(p[e.k]-r[1]))}}else if(p[e.k]>.35){bad.push(`${e.k} ${f(p[e.k],2)}% (not allowed above 0.35)`);dev+=p[e.k]-.35}});return{a,bad,dev}});
+const ok=sc.filter(s=>!s.bad.length);
+let h=`<h3 style="margin-top:0">Your mix</h3><div class="cbar">${E.filter(e=>p[e.k]>0).map(e=>`<span title="${e.k}" style="width:${p[e.k]}%;background:${CC[e.k]}"></span>`).join('')}</div><p>${E.filter(e=>p[e.k]>0).map(e=>`${e.k} ${f(p[e.k],p[e.k]>=1?1:2)}%`).join(' · ')}<br>Estimated density ${f(1/iv,2)} g/cm³</p>`;
+if(ok.length)h+=`<p class="ok">Within the limits of: ${ok.map(s=>s.a.n).join(', ')}.</p><p class="sub">Melting: ${ok[0].a.melt}. Datasheet density ${ok[0].a.rr} g/cm³.</p>`;
+else{const n=sc.sort((x,y)=>x.dev-y.dev).slice(0,2);h+=`<p class="bad">No listed grade matches. Closest:</p>`+n.map(s=>`<p><b>${s.a.n}</b><br><span class="sub">${s.bad.join('; ')}</span></p>`).join('')}
+if(window.CH)h+=chRes(ok,t);R.innerHTML=h}
+check();
+const er=$('el');E.forEach(e=>{const r=er.insertRow();r.innerHTML=`<td>${e.n} (${e.k})</td><td class="n">${e.d}</td><td class="n">${e.m||'sublimes near 3,600'}</td>`});
+
+const T={'Melting and casting':'Metals are melted together, stirred, and poured into a mould. Gray iron, tin bronze (C90300 is a casting alloy) and most aluminium castings are made this way. Cooling rate controls grain size. Add the metal with the highest melting point first and the volatile one (zinc) last.','Forging':'Hot metal is hammered or pressed into shape. Forging closes internal voids and aligns the grain with the part’s shape.','Rolling and drawing':'Rollers squeeze ingots into plate, sheet and beams. Wire is pulled through smaller dies. Cold working hardens metal. That is why brass C26000 is sold in tempers such as quarter hard and half hard, with higher minimum strength as the temper gets harder.','Powder metallurgy':'Fine powders are blended, pressed in a die and heated below their melting point so the grains fuse (sintering). It can combine metals that do not mix as liquids and wastes little material.','Heat treatment':'Heating and cooling change steel’s hardness without changing its recipe. Quenching makes it hard and brittle, tempering trades some hardness for toughness, and annealing softens it. 6061-T6 is precipitation hardened: solution treated, then aged. 304 stainless cannot be hardened this way.','Surface treatment':'Galvanizing coats steel with zinc. Carburizing adds carbon to the outside of a low-carbon steel such as 1018 for a hard shell over a tough core. Anodizing thickens aluminium’s natural oxide skin.'};
+Object.keys(T).forEach((k,i)=>{const b=document.createElement('button');b.textContent=k;b.onclick=()=>{[...$('tabs').children].forEach(x=>x.setAttribute('aria-pressed',x===b));$('panel').innerHTML=`<h3 style="margin-top:0">${k}</h3><p>${T[k]}</p>`};$('tabs').appendChild(b);if(!i)b.click()});
+
+const S=[['worldsteel fact sheet: steel and raw materials','https://www.steel.org.au/resources/elibrary/resources/worldsteel-fact-sheet-steel-and-raw-materials/'],['Raw material per tonne (1,370 / 780 / 270 / 125 kg)','https://www.glencore.ca/.rest/api/v1/documents/2d2c0723db848c325e02f2dfd5ce50a0/EVR+Steelmaking+Coal+Factsheet+0125.pdf'],['Britannica: iron processing (blast furnace, slag, blast temperature)','https://britannica.com/technology/iron-processing/Iron-making'],['thyssenkrupp: ore, coke and a hot furnace (tuyere and tap temperatures)','https://www.thyssenkrupp-steel.com/en/newsroom/highlights/infographics/ore-coke-and-a-hot-furnace/'],['Blast furnace (Wikipedia: reactions, pig iron carbon)','https://en.wikipedia.org/wiki/Blast_furnace'],['BOF operations (ispatguru: 1,650 °C, 40–50 min)','https://www.ispatguru.com/?p=2511'],['BOF charge about 70% hot metal and 30% scrap (US patent 4,010,029)','https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/4010029'],['Electric arc furnace data (Messer)','https://applications.messergroup.com/ironandsteel/steel/electricarcfurnace'],['EAF energy 350–400 kWh/t (US patent 9,863,709)','https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/9863709'],['Ore concentrate and pellet iron content (Polish Academy of Sciences)','https://www.czasopisma.pan.pl//Content/106857/PDF/krzak.pdf'],['CRC Handbook element data (density, melting)','https://corpora.tika.apache.org/base/docs/govdocs1/576/576298.pdf'],['Boiling points of elements (zinc 907 °C)','https://www.science.co.il/elements/']];
+$('srcl').innerHTML=S.map(s=>`<li><a href="${s[1]}" rel="noopener" target="_blank">${s[0]}</a></li>`).join('');
+// melt-o-meter (solidus, liquidus from the library and element data)
+const MR=[['Tin',232,232],['Zinc',420,420],['6061 aluminium',582,652],['Aluminium',660,660],['C90300 bronze',854,1000],['C26000 brass',915,960],['Copper',1085,1085],['Gray cast iron',1180,1380],['304 stainless',1400,1455],['Nichrome 80/20',1400,1400],['1018 steel',1425,1510],['1045 steel',1430,1430],['Nickel',1455,1455],['Iron',1538,1538],['Chromium',1907,1907]];
+const EV=[[420,'Zinc melts at 420 °C'],[907,'Zinc boils at 907 °C, which is why brass gives off zinc fume'],[1500,'Blast furnaces tap iron at about 1,500 °C'],[1650,'Steel leaves a basic oxygen furnace at about 1,650 °C'],[2200,'Gas near blast-furnace tuyeres reaches about 2,200 °C']];
+function mdraw(){const T=+$('mr').value,fr=T/2300;$('mt').textContent=T.toLocaleString('en-US')+' °C';$('mt').style.color=`hsl(${210-195*fr} 70% ${40+10*fr}%)`;$('mcard').style.boxShadow=`0 0 ${fr*40}px hsl(20 100% 55% / ${fr*.45})`;
+const ev=EV.filter(e=>Math.abs(e[0]-T)<=50);$('mev').textContent=ev.length?ev.map(e=>e[1]).join('. ')+'.':'Nothing notable here. Keep sliding.';
+$('mrows').innerHTML=MR.map(r=>{const s=T<r[1]?['solid','']:T>=r[2]?['liquid','l']:['mushy','m'];const w=Math.max((r[2]-r[1])/23,.8);return `<div class="mr"><span>${r[0]}</span><div class="tr"><b style="left:${r[1]/23}%;width:${w}%"></b><i style="left:${fr*100}%"></i></div><em class="st ${s[1]}">${s[0]}</em></div>`}).join('')}
+$('mr').oninput=mdraw;mdraw();
+// carbon dial
+const CZ=[{n:'SAE 1018',r:[.15,.2],c:'low-carbon steel',u:'Shafts, pins and welded frames. Easy to machine and weld.',m:'1,425–1,510 °C'},{n:'SAE 1045',r:[.43,.5],c:'medium-carbon steel',u:'Gears, shafts and axles. Heat-treatable.',m:'about 1,430 °C'},{n:'AISI 1095',r:[.9,1.04],c:'high-carbon steel',u:'Harder, used for springs and cutting tools.',m:null},{n:'Gray cast iron',r:[2.5,4],c:'cast iron',u:'Engine blocks and machine bases. Casts easily, brittle in tension.',m:'solidus about 1,180 °C'},{n:'Pig iron',r:[4,5],c:'blast-furnace iron',u:'Too brittle to use directly. Most is refined into steel.',m:'lower than steel or pure iron, because carbon lowers the melting point'}];
+function cdraw(){const c=+$('cr').value;$('cv').textContent=f(c,2)+'% carbon';const z=CZ.find(z=>c>=z.r[0]-1e-9&&c<=z.r[1]+1e-9);
+$('cd').innerHTML=z?`<b>${z.n}</b> (${z.c}). ${z.u}${z.m?' Melting: '+z.m+'.':''}`:(c<.05?'Almost pure iron. Very soft.':c<2?'Steel territory (up to about 2% carbon). Land on a marked grade to see its standard range.':c<2.5?'Between steel and cast iron. Cast iron begins at about 2% carbon.':c<4?'Cast-iron territory.':'Pig-iron territory.');
+$('ct').innerHTML=CZ.map(z=>`<b style="left:${z.r[0]/.05}%;width:${(z.r[1]-z.r[0])/.05}%"></b>`).join('')+`<i style="left:${c/.05}%"></i>`}
+CZ.forEach(z=>{const b=document.createElement('button');b.type='button';b.textContent=z.n;b.onclick=()=>{$('cr').value=(z.r[0]+z.r[1])/2;cdraw()};$('cchips').appendChild(b)});
+$('cr').oninput=cdraw;cdraw();
+// blast furnace stepper
+const FZ=[{n:'Top',t:'gas leaves at about 200 °C',c:'#5d7280',d:'Ore, coke and limestone are charged in layers. The charge is dried and preheated by the rising gas, which has given up most of its heat by the time it exits.',rx:'No major reaction yet'},{n:'Stack',t:'rising toward 1,200 °C',c:'#8c6a4d',d:'Carbon monoxide strips oxygen from the ore in steps as it sinks. Limestone breaks down into lime and carbon dioxide.',rx:'Fe₂O₃ + 3CO → 2Fe + 3CO₂ and CaCO₃ → CaO + CO₂'},{n:'Lower stack',t:'up to about 1,200 °C',c:'#b1592f',d:'The last iron oxide, FeO, is reduced to metallic iron.',rx:'FeO + CO → Fe + CO₂'},{n:'Tuyeres',t:'blast 900–1,350 °C, gas about 2,200 °C',c:'#d9391e',d:'Preheated air is blasted in and burns the coke. That makes the carbon monoxide that does the reducing.',rx:'2C + O₂ → 2CO'},{n:'Hearth',t:'tapped at about 1,500 °C',c:'#e8602a',d:'Iron melts, takes up about 4–5% carbon and collects. Lime binds silica into slag, which floats on top. Both are tapped through the taphole.',rx:'CaO + SiO₂ → CaSiO₃'}];
+let fi=0;$('furn').innerHTML='<div class="fz" id="fzb"></div><div class="card" id="fzd"></div>';
+FZ.forEach((z,i)=>{const b=document.createElement('button');b.type='button';b.style.background=z.c;b.textContent=z.n+' · '+z.t;b.onclick=()=>fshow(i);$('fzb').appendChild(b)});
+function fshow(i){fi=i;[...$('fzb').children].forEach((b,j)=>b.setAttribute('aria-pressed',j===i));const z=FZ[i];$('fzd').innerHTML=`<h3 style="margin-top:0">${z.n}</h3><p>${z.d}</p><p><span class="eq" style="white-space:normal">${z.rx}</span></p><button type="button" id="fzn">${i<FZ.length-1?'Follow the ore down':'Start over'}</button>`;$('fzn').onclick=()=>fshow((fi+1)%FZ.length)}
+fshow(0);
+// foundry challenge
+let streak=0;window.CH=null;
+$('chb').onclick=()=>{const a=A[Math.floor(Math.random()*A.length)],m=[250,500,1000][Math.floor(Math.random()*3)];window.CH={a:a,m:m};E.forEach(e=>$('m'+e.k).value='');ld.value='';const b=$('chm');b.hidden=false;b.innerHTML=`<b>Challenge:</b> make <b>${m} g</b> of <b>${a.n}</b>. Type grams of each element below. The total must be within 3% of ${m} g. Streak: <b id="stk">${streak}</b> <button type="button" id="chs">Show answer</button>`;$('chs').onclick=()=>{const F=full(a);window.CH.rev=1;E.forEach(e=>$('m'+e.k).value=f((F[e.k]||0)*m/100,2));check()};check()};
+function chRes(ok,t){const c=window.CH,good=ok.some(s=>s.a===c.a),mOk=Math.abs(t-c.m)/c.m<=.03,win=good&&mOk;if(win&&!c.done&&!c.rev){c.done=1;streak++;$('stk').textContent=streak}
+return `<p class="${win?'ok':'bad'}">${good?'Chemistry matches '+c.a.n+'.':'Chemistry does not match '+c.a.n+' yet.'} Total ${f(t,1)} g of ${c.m} g ${mOk?'(on target)':'(outside 3%)'}.</p>`+(win?'<p class="ok">Challenge complete. Tap “Challenge me” for another.</p>':'')}
+</script>
+</body>
+</html>
